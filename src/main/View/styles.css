@@ -1,0 +1,117 @@
+a {
+	text-decoration: none;
+	color: #6d2524;
+}
+
+body {
+	background: #d5896f;
+	font-family: 'Barlow Semi Condensed', sans-serif;
+}
+
+.navbar {
+	background: linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b); 
+}
+
+ion-icon {
+	font-size: 20px;
+	margin: 5px;
+}
+
+.icon-search {
+	margin: 0;
+	font-size: 18px;
+}
+
+#nav-left {
+	position: sticky;
+	top: 65px;
+}
+
+.list-loai_sach {
+	padding-top: 30px;
+	min-height: 100vh;
+	background-color: #B6FBEE;
+}
+
+.loaiSach-item  {
+	transition: 0.5s;
+	margin: 0;
+	padding: 5px 15px;
+	font-size: 14px;
+	border-bottom: solid 1px #621708;
+	cursor: pointer;
+}
+
+.loaiSach-item:hover {
+	background-color: #00918E;
+	font-weight: bold;
+	color: #fff;
+}
+
+.card{
+	width: 100%;
+	min-height: 100%;
+	border: 0;
+}
+
+.card:hover{
+	box-shadow: 0 0 8px #aaa;
+}
+
+.card-body {
+	width: 100%;
+	height: 100%;
+}
+
+.card-body>img{
+	width: 170px;
+	height: 200px;
+	border: 1px solid black;
+}
+
+.card-content {
+	width: 100%;
+}
+
+.card-body .card-content small{
+	display: block;
+	max-width: 170px;
+}
+
+.list-Sach {
+	padding-top: 20px;
+	min-height: 100vh;
+}
+
+.main-section {
+	margin: 0 auto;
+	margin-top: 100px;
+	background-color: #fff;
+	border-radius: 5px;
+	padding: 0px;
+}
+
+.form-input button {
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    top: 50%;
+    margin-left: 10px;
+    transform: translateY(-75%);
+    z-index: 2;
+    display: block;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+footer {
+	background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+}
