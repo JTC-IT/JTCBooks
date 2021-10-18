@@ -6,13 +6,12 @@
 <title>JBooks</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Bootstrap -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	
 <style type="text/css">
 body {
@@ -53,14 +52,12 @@ body {
 }
 
 .login-snip .sign-in,
-.login-snip .sign-up,
-.login-space .group .check {
+.login-snip .sign-up{
     display: none
 }
 
 .login-snip .tab,
-.login-space .group .label,
-.login-space .group .button {
+.login-space .group button {
     text-transform: uppercase
 }
 
@@ -91,16 +88,11 @@ body {
     margin-bottom: 15px
 }
 
-.login-space .group .label,
-.login-space .group .input,
-.login-space .group .button {
+.login-space .group input,
+.login-space .group button{
     width: 100%;
     color: #fff;
-    display: block
-}
-
-.login-space .group .input,
-.login-space .group .button {
+    display: block;
     border: none;
     padding: 15px 20px;
     border-radius: 25px;
@@ -112,65 +104,12 @@ body {
     -webkit-text-security: circle
 }
 
-.login-space .group .label {
-    color: #aaa;
-    font-size: 12px
-}
-
-.login-space .group .button {
+.login-space .group button {
     background: #1161ee
 }
 
-.login-space .group .button:hover {
+.login-space .group button:hover {
     background: #13E043
-}
-
-.login-space .group label .icon {
-    width: 15px;
-    height: 15px;
-    border-radius: 2px;
-    position: relative;
-    display: inline-block;
-    background: rgba(255, 255, 255, .1)
-}
-
-.login-space .group label .icon:before,
-.login-space .group label .icon:after {
-    content: '';
-    width: 10px;
-    height: 2px;
-    background: #fff;
-    position: absolute;
-    transition: all .2s ease-in-out 0s
-}
-
-.login-space .group label .icon:before {
-    left: 3px;
-    width: 5px;
-    bottom: 6px;
-    transform: scale(0) rotate(0)
-}
-
-.login-space .group label .icon:after {
-    top: 6px;
-    right: 0;
-    transform: scale(0) rotate(0)
-}
-
-.login-space .group .check:checked+label {
-    color: #fff
-}
-
-.login-space .group .check:checked+label .icon {
-    background: #1161ee
-}
-
-.login-space .group .check:checked+label .icon:before {
-    transform: scale(1) rotate(45deg)
-}
-
-.login-space .group .check:checked+label .icon:after {
-    transform: scale(1) rotate(-45deg)
 }
 
 .login-snip .sign-in:checked+.tab+.sign-up+.tab+.login-space .login {
@@ -219,6 +158,9 @@ a {
 <body>
 <%
 String exist = request.getParameter("exist");
+if(exist == null){
+	exist = "1";
+}
 %>
 <div class="row">
     <div class="col-md-6 mx-auto p-0">
@@ -229,20 +171,40 @@ String exist = request.getParameter("exist");
                 						<input id="tab-2" type="radio" name="tab" class="sign-up" <% if(exist.equals("0")) out.print("checked"); %>>
                 						<label for="tab-2" class="tab">Đăng ký</label>
                     <div class="login-space">
-                        <form class="login" action="Login" method="post">
-                            <div class="group"><input name="username" type="text" class="input" placeholder="Nhập số điện thoại / email"> </div>
-                            <div class="group"><input name="pass" type="password" class="input" data-type="password" placeholder="Nhập mật khẩu"> </div>
-                            <div class="group"> <input type="submit" class="button" value="Đăng nhập"> </div>
+                        <form class="login" id="form-login">
+                            <div class="group">
+                            	<input name="username" type="text" placeholder="Nhập số điện thoại / email" id="login-uname">
+                            </div>
+                            <div class="group">
+                            	<input name="pass" type="password" data-type="password" placeholder="Nhập mật khẩu" id="login-pass">
+                            </div>
+                            <div class="group">
+                            	<small class="text-warning d-block text-center mb-2" id="login-mess"></small>
+                            	<button onclick="checkLogin()">Đăng nhập</button>
+                            </div>
                             <div class="hr"></div>
                             <div class="foot"> <a href="#">Quên mật khẩu?</a> </div>
                         </form>
-                        <form class="sign-up-form" action="Register" method="post">
-                            <div class="group"><input type="text" name="name" class="input" placeholder="Nhập họ tên"> </div>
-                            <div class="group"><input type="tel" name="phone" class="input" placeholder="Nhập số điện thoại"></div>
-                            <div class="group"><input type="email" name="email" class="input" placeholder="Nhập email"> </div>
-                            <div class="group"><input type="password" name="pass" class="input" data-type="password" placeholder="Tạo mật khẩu"> </div>
-                            <div class="group"><input type="password" name="repass" class="input" data-type="password" placeholder="Nhập lại mật khẩu"> </div>
-                            <div class="group"> <input type="submit" class="button" value="Đăng ký"> </div>
+                        <form class="sign-up-form" id="form-register">
+                            <div class="group">
+                            	<input type="text" name="name" class="input" placeholder="Nhập họ tên" id="register-name">
+                            </div>
+                            <div class="group">
+                            	<input type="tel" name="phone" placeholder="Nhập số điện thoại" id="register-phone">
+                            </div>
+                            <div class="group">
+                            	<input type="email" name="email" placeholder="Nhập email" id="register-email">
+                            </div>
+                            <div class="group">
+                            	<input type="password" name="pass" data-type="password" placeholder="Tạo mật khẩu" id="register-pass">
+                            </div>
+                            <div class="group">
+                            	<input type="password" name="repass" data-type="password" placeholder="Nhập lại mật khẩu" id="re-pass">
+                            </div>
+                            <div class="group">
+                            	<small class="text-warning d-block text-center mb-2" id="register-mess"></small>
+                            	<button onclick="checkRegister()">Đăng ký</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -250,14 +212,13 @@ String exist = request.getParameter("exist");
         </div>
     </div>
 </div>
-<a class="navbar-brand ml-5 mt-3 fixed-top" href="Home.jsp" title="Trang chủ">
+<a class="navbar-brand ml-5 mt-3 fixed-top" href="Home.jsp" title="Trang chủ" style="width: 110px">
   <img
     src="./logo_jtc.png"
     height="55"
-    width="110"
     alt=""
-    loading="lazy"
   />
 </a>
+<script type="text/javascript" src="login_script.js"></script>
 </body>
 </html>

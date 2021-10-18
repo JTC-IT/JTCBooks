@@ -1,7 +1,9 @@
 package Model.Dao;
 
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 
 import Model.Bean.Customer;
@@ -35,5 +37,25 @@ public class CustomerDao {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public int insertCustomer(Customer c)
+	{
+		int id = 0;
+		String sql = "{Call proc_insert_Customer(?,?,?,?,?,?)}";
+		try {
+			CallableStatement cs = DB.connec().prepareCall(sql);
+			cs.registerOutParameter(1, Types.INTEGER);
+			cs.setString(2, c.getName());
+			cs.setString(3, c.getPhone());
+			cs.setString(4, c.getEmail());
+			cs.setString(5, c.getPassword());
+			cs.setBoolean(6, c.isAdmin());
+			cs.execute();
+			id = cs.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return id;
 	}
 }

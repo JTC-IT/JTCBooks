@@ -15,21 +15,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--JavaScript cdn-->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Bootstrap -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- IonIcon -->
 <script type="module"
 	src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule
-	src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <!-- My CSS -->
-<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="home_style.css">
 </head>
 <body>
 <%
@@ -70,7 +68,6 @@
           src="./logo_jtc.png"
           height="55"
           alt="Jbooks"
-          loading="lazy"
         />
       </a>
       <!-- Left links -->
@@ -103,16 +100,16 @@
     <div class="d-flex align-items-center">
       <!-- Avatar -->
       <%if(user == null) {%>
-      	<a href="Register.jsp?exist=1" type="button"
+      	<a href="Login.jsp?exist=1" type="button"
           class="btn btn-outline-light">Đăng nhập</a>
-        <a href="Register.jsp?exist=0" type="button"
+        <a href="Login.jsp?exist=0" type="button"
           class="btn btn-outline-light ml-2">Đăng ký</a>
       <%} else{ %>
         <a class="nav-link text-light d-flex align-items-center text-uppercase" href="User.jsp">
         	<ion-icon name="person-outline"></ion-icon>
         	<%=user.getName() %>
         </a>
-        <a class="btn btn-outline-danger ml-2 font-weight-bold" href="Logout" type="button">
+        <a class="btn btn-outline-danger ml-2" href="Logout" type="button">
         	Đăng xuất
         </a>
       </div>
@@ -198,6 +195,6 @@
     © 2021 Copyright: Trần Trung Chính
   </div>
 </footer>
-<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="home_script.js"></script>
 </body>
 </html>

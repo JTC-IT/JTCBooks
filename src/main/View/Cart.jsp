@@ -21,10 +21,9 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- IonIcon -->
 <script type="module"
 	src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule
-	src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <!-- My CSS -->
 <link rel="stylesheet" href="cart_styles.css">
 </head>
@@ -91,9 +90,9 @@
     <div class="d-flex align-items-center">
       <!-- Avatar -->
       <%if(user == null) {%>
-      	<a href="Register.jsp?exist=1" type="button"
+      	<a href="Login.jsp?exist=1" type="button"
           class="btn btn-outline-light">Đăng nhập</a>
-        <a href="Register.jsp?exist=0" type="button"
+        <a href="Login.jsp?exist=0" type="button"
           class="btn btn-outline-light ml-2">Đăng ký</a>
       <%} else{ %>
         <a class="nav-link text-light d-flex align-items-center text-uppercase" href="User.jsp">
@@ -235,6 +234,6 @@
     © 2021 Copyright: Trần Trung Chính
   </div>
 </footer>
-<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="cart_script.js"></script>
 </body>
 </html>
