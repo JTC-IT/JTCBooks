@@ -31,6 +31,6 @@ public class LogoutControl extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		session.removeAttribute("user");
-		response.sendRedirect("Home.jsp");
+		response.sendRedirect("Home");
 	}
 }

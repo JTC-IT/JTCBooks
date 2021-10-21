@@ -5,14 +5,16 @@ public class Customer {
 	private String Name;
 	private String Phone;
 	private String Email;
+	private String Address;
 	private String Password;
 	private boolean Admin;
-	public Customer(int id, String name, String phone, String email, String password, boolean admin) {
+	public Customer(int id, String name, String phone, String email, String address, String password, boolean admin) {
 		super();
 		Id = id;
 		Name = name;
 		Phone = phone;
 		Email = email;
+		Address = address;
 		Password = password;
 		Admin = admin;
 	}
@@ -39,6 +41,12 @@ public class Customer {
 	}
 	public void setEmail(String email) {
 		Email = email;
+	}
+	public String getAddress() {
+		return Address;
+	}
+	public void setAddress(String address) {
+		Address = address;
 	}
 	public String getPassword() {
 		return Password;

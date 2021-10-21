@@ -7,7 +7,7 @@ nav {
 	background-image: linear-gradient(90deg, #020024 0%, #090979 35%, #00d4ff 100%);
 }
 
-nav .nav-item a{
+nav .nav-item a {
 	color: #FFF;
 }
 
@@ -30,7 +30,7 @@ nav .nav-item {
 	height: 100%;
 }
 
-nav .nav-item:hover a{
+nav .nav-item:hover a {
 	color: lime;
 }
 
@@ -57,19 +57,19 @@ nav button {
 }
 
 .has-search .form-control {
-    padding-left: 2.375rem;
+	padding-left: 2.375rem;
 }
 
 .has-search .form-control-feedback {
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    z-index: 2;
-    pointer-events: none;
-    color: #aaa;
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	z-index: 2;
+	pointer-events: none;
+	color: #aaa;
 }
 
-.loaiSach-item  {
+.loaiSach-item {
 	transition: 0.5s;
 	margin: 0;
 	padding: 5px 15px;
@@ -84,13 +84,13 @@ nav button {
 	color: #fff;
 }
 
-.card{
+.card {
 	width: 100%;
 	min-height: 100%;
 	border: 0;
 }
 
-.card:hover{
+.card:hover {
 	box-shadow: 0 0 8px #aaa;
 }
 
@@ -99,7 +99,7 @@ nav button {
 	height: 100%;
 }
 
-.card-body>img{
+.card-body>img {
 	width: 170px;
 	height: 200px;
 	border: 1px solid black;
@@ -109,7 +109,7 @@ nav button {
 	width: 100%;
 }
 
-.card-body .card-content small{
+.card-body .card-content small {
 	display: block;
 	max-width: 170px;
 }
@@ -117,6 +117,25 @@ nav button {
 .list-Sach {
 	padding-top: 20px;
 	min-height: 100vh;
+}
+
+#back-top {
+	width: 50px;
+	height: 50px;
+	display: flex;
+	cursor: pointer;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+	background-color: rgba(0, 0, 0, 0.3);
+	color: #FFF;
+	position: fixed;
+	right: 30px;
+	bottom: 60px;
+}
+
+#back-top ion-icon {
+	font-size: 1.7rem;
 }
 
 footer a {

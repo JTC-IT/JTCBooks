@@ -1,49 +1,50 @@
 package Controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import Model.Bo.CartBo;
 
 /**
- * Servlet implementation class OrderControl
+ * Servlet implementation class LoginRegister
  */
-@WebServlet("/OrderControl")
-public class OrderControl extends HttpServlet {
+@WebServlet("/LoginRegister")
+public class LoginRegister extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public OrderControl() {
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public LoginRegister() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String bookId = request.getParameter("id");
-		
-		HttpSession session = request.getSession();
-		CartBo cart = (CartBo)session.getAttribute("cart");
-		
-		if(bookId != null) {
-			if(cart == null)
-				cart = new CartBo();
-			cart.addCartItem(Integer.parseInt(bookId));
-			
-			session.setAttribute("cart", cart);
+		//get exist
+		String exist = request.getParameter("exist");
+		if(exist == null){
+			exist = "1";
 		}
-		response.sendRedirect("Cart");
+		request.setAttribute("exist", exist);
+		
+		//show LoginRegister
+		RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
+		rd.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

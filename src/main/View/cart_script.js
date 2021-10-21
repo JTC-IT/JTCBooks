@@ -56,8 +56,10 @@ function removeCartItem(btn,id) {
 		},
         success: function (info) {
 			document.getElementById("cart-body").removeChild(btn.parentNode.parentNode);
-			if(document.getElementsByClassName("cart-item").length == 0)
+			let lenCart = document.getElementsByClassName("cart-item").length;
+			if(lenCart == 0)
 				document.getElementById("alert-status").innerHTML = "Giỏ hàng trống !";
+			else document.getElementById("alert-status").innerHTML = "Giỏ hàng có "+lenCart+" sản phẩm chưa được thanh toán !";
 			document.getElementById("sumPay").innerHTML = info;
         }
     });

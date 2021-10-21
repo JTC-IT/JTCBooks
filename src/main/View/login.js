@@ -29,7 +29,7 @@ function checkLogin() {
 			dataType: 'JSON',
 	        success: function (info) {
 				if(info.mes){
-					window.location.replace("Home.jsp");
+					window.location.replace("Home");
 				}else $("#login-mess").text("Số điện thoại/email hoặc mật khẩu không đúng!");
 	        }
 	    });
@@ -75,6 +75,13 @@ function checkRegister() {
 		return;
 	}else $('#register-email').css("border","none");
 	
+	let address = $('#register-address').val().trim();
+	if(address == ''){
+		$('#register-address').css("border","1px solid red");
+		$("#register-mess").text("Vui lòng nhập địa chỉ!");
+		return;
+	}
+	
 	let pass = $('#register-pass').val().trim();
 	if(pass == ''){
 		$('#register-pass').css("border","1px solid red");
@@ -105,7 +112,7 @@ function checkRegister() {
 		dataType: 'JSON',
         success: function (info) {
 			if(info.mes > 1){
-				window.location.replace("Login.jsp");
+				window.location.replace("LoginRegister");
 			}else if(info.mes == -2){
 				$('#register-phone').css("border","1px solid red");
 				$("#register-mess").text("Số điện thoại đã được đăng ký!");

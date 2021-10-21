@@ -31,10 +31,12 @@ public class RegisterControl extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name").trim();
 		String phone = request.getParameter("phone").trim();
 		String email = request.getParameter("email").trim();
+		String address = request.getParameter("address").trim();
 		String pass = request.getParameter("pass").trim();
 		
 		CustomerBo Bo = new CustomerBo();
@@ -43,7 +45,7 @@ public class RegisterControl extends HttpServlet {
 		JSONObject json = new JSONObject();
 		
 		if(name != null && phone != null && email != null && pass != null) {
-			mes = Bo.Register(name, phone, email, pass);
+			mes = Bo.Register(name, phone, email, address, pass);
 		}
 		json.put("mes", mes);
 		out.print(json.toJSONString());

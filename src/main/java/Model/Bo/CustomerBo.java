@@ -20,8 +20,8 @@ public class CustomerBo {
 		return null;
 	}
 	
-	public int Register(String name, String phone, String email, String pass){
-		Customer c = new Customer(0, name, phone, email, pass, false);
+	public int Register(String name, String phone, String email, String address, String pass){
+		Customer c = new Customer(0, name, phone, email, address, pass, false);
 		return customerDao.insertCustomer(c);
 	}
 }

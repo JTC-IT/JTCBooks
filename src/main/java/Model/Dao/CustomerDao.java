@@ -27,6 +27,7 @@ public class CustomerDao {
 						, rs.getString("Name")
 						, rs.getString("Phone")
 						, rs.getString("Email")
+						, rs.getString("Address")
 						, rs.getString("Password")
 						, rs.getBoolean("Admin")
 						));
@@ -42,15 +43,16 @@ public class CustomerDao {
 	public int insertCustomer(Customer c)
 	{
 		int id = 0;
-		String sql = "{Call proc_insert_Customer(?,?,?,?,?,?)}";
+		String sql = "{Call proc_insert_Customer(?,?,?,?,?,?,?)}";
 		try {
 			CallableStatement cs = DB.connec().prepareCall(sql);
 			cs.registerOutParameter(1, Types.INTEGER);
 			cs.setString(2, c.getName());
 			cs.setString(3, c.getPhone());
 			cs.setString(4, c.getEmail());
-			cs.setString(5, c.getPassword());
-			cs.setBoolean(6, c.isAdmin());
+			cs.setString(5, c.getAddress());
+			cs.setString(6, c.getPassword());
+			cs.setBoolean(7, c.isAdmin());
 			cs.execute();
 			id = cs.getInt(1);
 		} catch (Exception e) {
