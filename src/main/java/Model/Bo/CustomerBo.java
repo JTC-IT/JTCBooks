@@ -8,11 +8,11 @@ import Model.Dao.*;
 public class CustomerBo {
 	private CustomerDao customerDao = new CustomerDao();
 	
-	public ArrayList<Customer> getCustomers(){
+	public ArrayList<Customer> getCustomers() throws Exception{
 		return customerDao.getCustomers();
 	}
 
-	public Customer Login(String st, String pass) {
+	public Customer Login(String st, String pass) throws Exception {
 		for(Customer c: getCustomers()) {
 			if((c.getPhone().trim().equals(st) || c.getEmail().trim().equals(st)) && c.getPassword().trim().equals(pass))
 				return c;
@@ -20,7 +20,7 @@ public class CustomerBo {
 		return null;
 	}
 	
-	public int Register(String name, String phone, String email, String address, String pass){
+	public int Register(String name, String phone, String email, String address, String pass) throws Exception{
 		Customer c = new Customer(0, name, phone, email, address, pass, false);
 		return customerDao.insertCustomer(c);
 	}

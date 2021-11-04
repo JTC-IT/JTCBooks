@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	$("#back-top").fadeOut();
+	
 	$(window).scroll(function(){
 		if($(this).scrollTop()){
 			$("#back-top").fadeIn();

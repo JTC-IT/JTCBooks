@@ -158,6 +158,8 @@ a {
 <body>
 <%
 	String exist = (String) request.getAttribute("exist");
+	if(exist == null)
+		exist = "1";
 %>
 	<div class="row">
 		<div class="col-md-6 mx-auto p-0">
@@ -231,6 +233,6 @@ a {
 		title="Trang chủ" style="width: 110px"> <img src="./logo_jtc.png"
 		height="55" alt="" />
 	</a>
-	<script type="text/javascript" src="login.js"></script>
+	<script type="text/javascript" src="./JS/login.js"></script>
 </body>
 </html>

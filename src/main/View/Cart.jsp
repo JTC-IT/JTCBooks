@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>JBooks-Cart</title>
+<title>JBooks</title>
 
 <!--JavaScript cdn-->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -27,7 +27,7 @@
 <script type="module"
 	src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <!-- My CSS -->
-<link rel="stylesheet" href="cart_styles.css">
+<link rel="stylesheet" href="./CSS/cart_styles.css">
 </head>
 <body>
 	<%
@@ -88,7 +88,6 @@
 					href="Logout" type="button"> Đăng xuất </a>
 			</div>
 			<%} %>
-		</div>
 		</div>
 	</nav>
 	<!-- Body -->
@@ -220,6 +219,6 @@
 			style="background-color: rgba(0, 0, 0, 0.2);">© 2021 Copyright:
 			Trần Trung Chính</div>
 	</footer>
-	<script type="text/javascript" src="cart_script.js"></script>
+	<script type="text/javascript" src="./JS/cart_script.js"></script>
 </body>
 </html>

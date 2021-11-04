@@ -30,14 +30,12 @@ public class LoginRegister extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//get exist
 		String exist = request.getParameter("exist");
-		if(exist == null){
-			exist = "1";
-		}
-		request.setAttribute("exist", exist);
 		
 		//show LoginRegister
-		RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
-		rd.forward(request, response);
+		if(exist == null || exist.equals("1"))
+			response.sendRedirect("Login");
+		else
+			response.sendRedirect("Register");
 	}
 
 	/**

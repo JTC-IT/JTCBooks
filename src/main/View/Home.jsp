@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>JBooks-Home</title>
+<title>JBooks</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Bootstrap -->
@@ -21,7 +21,7 @@
 <script type="module"
 	src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <!-- My CSS -->
-<link rel="stylesheet" href="home_style.css">
+<link rel="stylesheet" href="./CSS/home_style.css">
 </head>
 <body>
 	<%
@@ -89,7 +89,6 @@
 					Đăng xuất </a>
 			</div>
 			<%} %>
-		</div>
 		</div>
 	</nav>
 	<!-- Body -->
@@ -190,6 +189,6 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script type="text/javascript" src="home.js"></script>
+	<script type="text/javascript" src="./JS/home.js"></script>
 </body>
 </html>

@@ -25,19 +25,23 @@ public class OrderControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String bookId = request.getParameter("id");
-		
-		HttpSession session = request.getSession();
-		CartBo cart = (CartBo)session.getAttribute("cart");
-		
-		if(bookId != null) {
-			if(cart == null)
-				cart = new CartBo();
-			cart.addCartItem(Integer.parseInt(bookId));
+		try {
+			String bookId = request.getParameter("id");
 			
-			session.setAttribute("cart", cart);
+			HttpSession session = request.getSession();
+			CartBo cart = (CartBo)session.getAttribute("cart");
+			
+			if(bookId != null) {
+				if(cart == null)
+					cart = new CartBo();
+				cart.addCartItem(Integer.parseInt(bookId));
+				
+				session.setAttribute("cart", cart);
+			}
+			response.sendRedirect("Cart");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		response.sendRedirect("Cart");
 	}
 
 	/**

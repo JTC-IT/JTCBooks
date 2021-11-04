@@ -35,33 +35,37 @@ public class HomeControl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8") ;
-		response.setCharacterEncoding("utf-8");
-		
-		//get session
-		HttpSession session = request.getSession();
+		try {
+			request.setCharacterEncoding("utf-8") ;
+			response.setCharacterEncoding("utf-8");
+			
+			//get session
+			HttpSession session = request.getSession();
 
-		//get list Category Books
-		CategoryBo categoryBo = new CategoryBo();
-		request.setAttribute("listCategory", categoryBo.getCategorys());
-		
-		//get list Books
-		BookBo bookBo = new BookBo();
-		request.setAttribute("listBook", bookBo.getBooks());
-		
-		//get User
-		Customer user = (Customer) session.getAttribute("user");
-		if(user != null)
-			request.setAttribute("user", user);
-		
-		//get length Cart
-		CartBo Cart = (CartBo)session.getAttribute("cart");
-		if(Cart != null)
-			request.setAttribute("lengthCart", Cart.size());
-		
-		//show home
-		RequestDispatcher rd = request.getRequestDispatcher("Home.jsp");
-		rd.forward(request, response);
+			//get list Category Books
+			CategoryBo categoryBo = new CategoryBo();
+			request.setAttribute("listCategory", categoryBo.getCategorys());
+			
+			//get list Books
+			BookBo bookBo = new BookBo();
+			request.setAttribute("listBook", bookBo.getBooks());
+			
+			//get User
+			Customer user = (Customer) session.getAttribute("user");
+			if(user != null)
+				request.setAttribute("user", user);
+			
+			//get length Cart
+			CartBo Cart = (CartBo)session.getAttribute("cart");
+			if(Cart != null)
+				request.setAttribute("lengthCart", Cart.size());
+			
+			//show home
+			RequestDispatcher rd = request.getRequestDispatcher("Home.jsp");
+			rd.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

@@ -15,7 +15,7 @@ public class CartBo {
 		Cart = new ArrayList<CartItem>();
 	}
 	
-	public void addCartItem(int bookId) {
+	public void addCartItem(int bookId) throws Exception {
 		for(CartItem item: Cart) {
 			if(item.getId() == bookId) {
 				if(item.getAmount() < 5)
@@ -61,7 +61,7 @@ public class CartBo {
 		return new DecimalFormat("###,###,###").format(sum)+" đ";
 	}
 	
-	public void payCart(int customerId) {
+	public void payCart(int customerId) throws Exception {
 		if(size() < 1)
 			return;
 		CartDao cartDao = new CartDao();

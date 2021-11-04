@@ -67,7 +67,6 @@ select.form-control {
 	border-radius: 22px;
 	background-color: #fff;
 	color: #606975;
-	font-family: "Maven Pro", Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -111,8 +110,7 @@ select.form-control {
 	text-decoration: none
 }
 
-.shopping-cart .count-input, .wishlist-table .count-input, .order-table .count-input
-	{
+.shopping-cart .count-input {
 	display: inline-block;
 	width: 100%;
 	width: 86px

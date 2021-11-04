@@ -7,7 +7,7 @@ import Model.Dao.*;
 
 public class CategoryBo {
 	CategoryDao categoryDao = new CategoryDao();
-	public ArrayList<Category> getCategorys(){
+	public ArrayList<Category> getCategorys() throws Exception{
 		return categoryDao.getCategorys();
 	}
 }
