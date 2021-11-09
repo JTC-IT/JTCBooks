@@ -13,7 +13,7 @@ public class Book {
 	private String Img;
 	private int CategoryId;
 	private Date DateAdd;
-	
+
 	public Book(int id, String name, String author, int amount, int price, String img, int categoryId, Date dateAdd) {
 		super();
 		Id = id;
@@ -91,9 +91,9 @@ public class Book {
 	}
 
 	public String priceToString() {
-		return new DecimalFormat("###,###,###").format(Price)+" đ";
+		return new DecimalFormat("###,###,###").format(Price) + " đ";
 	}
-	
+
 	public String dateAddToString() {
 		return new SimpleDateFormat("dd-MM-yyyy hh:mm").format(DateAdd);
 	}

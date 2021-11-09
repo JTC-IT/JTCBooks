@@ -1,3 +1,4 @@
+
 package Controller;
 
 import java.io.IOException;
@@ -10,25 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Model.Bo.BookBo;
+import Model.Bean.Customer;
 import Model.Bo.CartBo;
-import Model.Bo.CategoryBo;
 
 /**
- * Servlet implementation class HomeControl
+ * Servlet implementation class ThanhToan
  */
-@WebServlet("/Home")
-public class HomeControl extends HttpServlet {
+@WebServlet("/ThanhToan")
+public class ThanhToan extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * 
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public HomeControl() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -43,22 +34,20 @@ public class HomeControl extends HttpServlet {
 			// get session
 			HttpSession session = request.getSession();
 
-			// get list Category Books
-			CategoryBo categoryBo = new CategoryBo();
-			request.setAttribute("listCategory", categoryBo.getCategorys());
-
-			// get list Books
-			BookBo bookBo = new BookBo();
-			request.setAttribute("listBook", bookBo.getBooks());
-
-			// get length Cart
-			CartBo Cart = (CartBo) session.getAttribute("cart");
-			if (Cart != null)
-				request.setAttribute("lengthCart", Cart.size());
-
-			// show home
-			RequestDispatcher rd = request.getRequestDispatcher("Home.jsp");
-			rd.forward(request, response);
+			Customer user = (Customer) session.getAttribute("user");
+			if (user == null) {
+				response.sendRedirect("Login");
+			} else {
+				CartBo Cart = (CartBo) session.getAttribute("cart");
+				if (Cart == null || Cart.size() < 1) {
+					response.sendRedirect("Home");
+				} else {
+					request.setAttribute("cart", Cart);
+					Cart.payCart(user.getId(), user.getAddress());
+					RequestDispatcher rd = request.getRequestDispatcher("BillDetails.jsp");
+					rd.forward(request, response);
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -3,6 +3,11 @@
 	margin: 0
 }
 
+body {
+	background-color: #e5e2e2;
+	font-family: 'Roboto', sans-serif;
+}
+
 nav {
 	background-image: linear-gradient(90deg, #020024 0%, #090979 35%, #00d4ff 100%);
 }
@@ -257,6 +262,7 @@ select.form-control {
 
 #body {
 	padding: 5vh 5vw;
+	min-height: 100vh;
 }
 
 .cart-header {
@@ -264,7 +270,7 @@ select.form-control {
 	background-color: #E4E4E5;
 }
 
-#confirmClean button {
+.modal .btn {
 	width: 45%;
 }
 
@@ -283,7 +289,7 @@ select.form-control {
 }
 
 /* Modal Content/Box */
-#confirmClean .modal-content {
+.modal .modal-content {
 	padding: 1.5em;
 	text-align: center;
 	background-color: #fefefe;
@@ -294,7 +300,7 @@ select.form-control {
 }
 
 /* The Modal Close Button (x) */
-#confirmClean .close {
+.modal .close {
 	position: absolute;
 	right: 100px;
 	top: 100px;
@@ -303,14 +309,14 @@ select.form-control {
 	color: #f1f1f1;
 }
 
-#confirmClean .close:hover, #confirmClean .close:focus {
+.modal .close:hover, #confirmClean .close:focus {
 	color: #f44336;
 	cursor: pointer;
 }
 
 /* Change styles for cancel button and delete button on extra small screens */
 @media screen and (max-width: 300px) {
-	#confirmClean .cancelbtn, #confirmClean .deletebtn {
+	.modal .cancelbtn, #confirmClean .deletebtn {
 		width: 100%;
 	}
 }

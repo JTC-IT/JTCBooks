@@ -7,13 +7,13 @@
 <html>
 <head>
 <meta charset="utf-8">
+<link rel="icon" href="./image_sach/icon_jshop.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JBooks</title>
 
 <!--JavaScript cdn-->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Bootstrap -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -23,6 +23,9 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css?family=Roboto"
+	rel="stylesheet">
 <!-- IonIcon -->
 <script type="module"
 	src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
@@ -34,9 +37,9 @@
 	request.setCharacterEncoding("utf-8") ;
 	response.setCharacterEncoding("utf-8");
 	
-	Customer user = (Customer) request.getAttribute("user");
+	Customer user = (Customer) session.getAttribute("user");
 	
-	CartBo Cart = (CartBo) request.getAttribute("cart");
+	CartBo Cart = (CartBo) session.getAttribute("cart");
 %>
 	<!-- Header -->
 	<nav class="navbar navbar-expand-lg sticky-top">
@@ -54,7 +57,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<!-- Navbar brand -->
 				<a class="navbar-brand mt-2 mt-lg-0" href="Home"> <img
-					src="./logo_jtc.png" height="55" alt="" loading="lazy" />
+					src="./image_sach/logo_jtc.png" height="55" alt="" loading="lazy" />
 				</a>
 				<!-- Left links -->
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -91,20 +94,19 @@
 		</div>
 	</nav>
 	<!-- Body -->
-	<div id="body" class="container bg-light pt-3 min-vh-100">
+	<div id="body" class="container pt-3">
 		<!-- Alert-->
-		<div class="alert alert-info alert-dismissible fade show text-center"
-			style="margin-bottom: 30px;">
-			<span id="alert-status" class="alert-close" data-dismiss="alert">
-				<%if(Cart == null || Cart.size() <= 0) out.print("Giỏ hàng trống !");
+		<div class="alert alert-info text-center" style="margin-bottom: 30px;"
+			role="alert">
+			<span id="alert-status"> <%if(Cart == null || Cart.size() <= 0) out.print("Giỏ hàng trống !");
 			else out.print("Giỏ hàng có "+Cart.size()+" sản phẩm chưa được thanh toán !");%>
 			</span>
 		</div>
 		<!-- Shopping Cart-->
 		<div class="table-responsive shopping-cart">
-			<table class="table">
+			<table class="table bg-light">
 				<thead>
-					<tr class="cart-header">
+					<tr class="table-active">
 						<th>Sản Phẩm</th>
 						<th class="text-center">S.Lượng</th>
 						<th class="text-center">Thành Tiền</th>
@@ -169,10 +171,32 @@
 					class="icon-arrow-left"></i>Tiếp tục mua</a>
 			</div>
 			<div class="column">
-				<a id="btn-payCart" class="btn btn-success" href="#">Thanh toán</a>
+				<%if(Cart != null && Cart.size() > 0)
+					out.print("<button type=\"button\" id=\"btn-payCart\" class=\"btn btn-success\" onclick=\"showConfirmOrder()\">Đặt mua ngay</button>");
+				%>
 			</div>
 		</div>
 	</div>
+
+	<!-- Modal confirm Order -->
+	<div id="modalConfirmOrder" class="modal">
+		<span
+			onclick="document.getElementById('modalConfirmOrder').style.display='none'"
+			class="close" title="Close Modal">×</span>
+		<div class="modal-content">
+			<h2>Hoàn tất đặt hàng</h2>
+			<p>Đặt tất cả các sách trong giỏ hàng của bạn.</p>
+
+			<div class="d-flex justify-content-between">
+				<button type="button"
+					onclick="document.getElementById('modalConfirmOrder').style.display='none'"
+					class="btn btn-outline-secondary">Hủy bỏ</button>
+				<a href="ThanhToan" role="button" class="btn btn-success text-light">Đặt
+					hàng</a>
+			</div>
+		</div>
+	</div>
+
 	<!-- Modal confirm clear cart -->
 	<div id="confirmClean" class="modal">
 		<span
@@ -182,7 +206,7 @@
 			<h2>Xóa sạch giỏ hàng</h2>
 			<p>Bạn có muốn xóa tất cả sách đã chọn ?</p>
 
-			<div class="d-flex btn justify-content-between">
+			<div class="d-flex justify-content-between">
 				<button type="button" onclick="clearCart()"
 					class="btn btn-outline-danger">Xóa</button>
 				<button type="button"
@@ -219,6 +243,7 @@
 			style="background-color: rgba(0, 0, 0, 0.2);">© 2021 Copyright:
 			Trần Trung Chính</div>
 	</footer>
-	<script type="text/javascript" src="./JS/cart_script.js"></script>
+
+	<script type="text/javascript" src="./JS/cart_js.js"></script>
 </body>
 </html>

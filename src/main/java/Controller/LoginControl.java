@@ -22,39 +22,44 @@ import Model.Bo.CustomerBo;
 @WebServlet("/Login")
 public class LoginControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginControl() {
-        super();
-    }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	request.setAttribute("exist", "1");
-		//show Login
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public LoginControl() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setAttribute("exist", "1");
+		// show Login
 		RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
 		rd.forward(request, response);
-    }
+	}
+
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			HttpSession session = request.getSession();
 			String uname = request.getParameter("username");
 			String pass = request.getParameter("pass");
-			
+
 			PrintWriter out = response.getWriter();
 			boolean mes = false;
 			JSONObject json = new JSONObject();
-			
-			if(uname != null && pass != null) {
+
+			if (uname != null && pass != null) {
 				Customer user = new CustomerBo().Login(uname, pass);
-				if(user != null) {
+				if (user != null) {
 					session.setAttribute("user", user);
 					mes = true;
-				}else mes = false;
+				} else
+					mes = false;
 			}
 			json.put("mes", mes);
 			out.print(json.toJSONString());

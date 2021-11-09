@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,26 +17,28 @@ import Model.Bo.CartBo;
 @WebServlet("/OrderControl")
 public class OrderControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public OrderControl() {
-        super();
-    }
+
+	public OrderControl() {
+		super();
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			String bookId = request.getParameter("id");
-			
+
 			HttpSession session = request.getSession();
-			CartBo cart = (CartBo)session.getAttribute("cart");
-			
-			if(bookId != null) {
-				if(cart == null)
+			CartBo cart = (CartBo) session.getAttribute("cart");
+
+			if (bookId != null) {
+				if (cart == null)
 					cart = new CartBo();
 				cart.addCartItem(Integer.parseInt(bookId));
-				
+
 				session.setAttribute("cart", cart);
 			}
 			response.sendRedirect("Cart");
@@ -45,9 +48,11 @@ public class OrderControl extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

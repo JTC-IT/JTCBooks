@@ -1,6 +1,7 @@
 package Model.Dao;
 
 import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Types;
@@ -9,32 +10,45 @@ import java.util.ArrayList;
 import Model.Bean.Customer;
 
 public class CustomerDao {
-	
-	public ArrayList<Customer> getCustomers() throws Exception{
+
+	public ArrayList<Customer> getCustomers() throws Exception {
 		ConnectDB DB = new ConnectDB();
 		ArrayList<Customer> list = new ArrayList<Customer>();
 		String sql = "select* from Customers";
-		
+
 		Statement st = DB.connec().createStatement();
 		ResultSet rs = st.executeQuery(sql);
-		while(rs.next()) {
-			list.add(new Customer(rs.getInt("Id")
-					, rs.getString("Name")
-					, rs.getString("Phone")
-					, rs.getString("Email")
-					, rs.getString("Address")
-					, rs.getString("Password")
-					, rs.getBoolean("Admin")
-					));
+		while (rs.next()) {
+			list.add(new Customer(rs.getInt("Id"), rs.getString("Name"), rs.getString("Phone"), rs.getString("Email"),
+					rs.getString("Address"), rs.getString("Password"), rs.getBoolean("Admin")));
 		}
 		rs.close();
 		st.close();
 		DB.close();
 		return list;
 	}
-	
-	public int insertCustomer(Customer c) throws Exception
-	{
+
+	public Customer getCustomer(String name, String pass) throws Exception {
+		ConnectDB DB = new ConnectDB();
+		Customer user = null;
+		String sql = "select* from Customers where (Phone = ? or Email = ?) and Password = ?";
+
+		PreparedStatement st = DB.connec().prepareStatement(sql);
+		st.setString(1, name);
+		st.setString(2, name);
+		st.setString(3, pass);
+		ResultSet rs = st.executeQuery();
+		if (rs.next()) {
+			user = new Customer(rs.getInt("Id"), rs.getString("Name"), rs.getString("Phone"), rs.getString("Email"),
+					rs.getString("Address"), rs.getString("Password"), rs.getBoolean("Admin"));
+		}
+		rs.close();
+		st.close();
+		DB.close();
+		return user;
+	}
+
+	public int insertCustomer(Customer c) throws Exception {
 		ConnectDB DB = new ConnectDB();
 		int id = 0;
 		String sql = "{Call proc_insert_Customer(?,?,?,?,?,?,?)}";

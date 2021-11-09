@@ -5,6 +5,7 @@
 <head>
 <title>JBooks</title>
 <meta charset="utf-8">
+<link rel="icon" href="./image_sach/icon_jshop.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Bootstrap -->
 <link rel="stylesheet"
@@ -20,7 +21,8 @@
 <link rel="stylesheet" href="./CSS/home_style.css">
 <!-- Javascript -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -51,22 +53,21 @@
 											data-toggle="modal" data-target="#edit">
 											<ion-icon name="create-outline"></ion-icon>
 										</button>
-									</p>
-								</td>
+									</p></td>
 								<td><p data-placement="top" data-toggle="tooltip"
 										title="Delete">
 										<button class="btn btn-danger btn-xs" data-title="Delete"
 											data-toggle="modal" data-target="#delete">
 											<ion-icon name="trash-outline"></ion-icon>
 										</button>
-									</p>
-								</td>
+									</p></td>
 							</tr>
 						</tbody>
 					</table>
 					<div class="clearfix"></div>
 					<ul class="pagination pull-right">
-						<li class="disabled"><a href="#"><ion-icon name="chevron-back-outline"></ion-icon></a></li>
+						<li class="disabled"><a href="#"><ion-icon
+									name="chevron-back-outline"></ion-icon></a></li>
 						<li class="active"><a href="#">1</a></li>
 						<li><a href="#">2</a></li>
 						<li><a href="#">3</a></li>
@@ -147,7 +148,7 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-<!-- Javascript -->
-<script type="text/javascript" src="./JS/customers.js"></script>
+	<!-- Javascript -->
+	<script type="text/javascript" src="./JS/customers.js"></script>
 </body>
 </html>
