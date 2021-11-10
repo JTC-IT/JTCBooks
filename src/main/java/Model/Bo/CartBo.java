@@ -1,33 +1,37 @@
 package Model.Bo;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import Model.Bean.Bill;
 import Model.Bean.Book;
 import Model.Bean.CartItem;
 import Model.Dao.CartDao;
 
 public class CartBo {
 	private ArrayList<CartItem> Cart;
-	private int id;
-	private Date dateOrder;
+	private Bill bill;
 
-	public int getId() {
-		return id;
+	public Bill getBill() {
+		return bill;
 	}
 
 	public String getDateOrder() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm aa");
-		return sdf.format(dateOrder);
+		return bill.getDateAddToString();
 	}
 
 	public CartBo() {
 		super();
 		Cart = new ArrayList<CartItem>();
-		id = 0;
-		dateOrder = new Date();
+		bill = new Bill();
+	}
+	
+	public CartBo(Bill bill) throws Exception {
+		this.bill = new Bill(bill);
+		
+		CartDao cartDao = new CartDao();
+		Cart = cartDao.getBillDetail(bill.getId());
 	}
 
 	public void addCartItem(int bookId) throws Exception {
@@ -80,12 +84,12 @@ public class CartBo {
 		if (size() < 1)
 			return;
 		CartDao cartDao = new CartDao();
-		id = cartDao.createBill(customerId, address);
+		bill.setId(cartDao.createBill(customerId, address));
 
-		if (id > 0) {
+		if (bill.getId() > 0) {
 			for (CartItem item : Cart)
-				cartDao.saveCartItem(id, item.getId(), item.getAmount());
-			dateOrder = new Date();
+				cartDao.saveCartItem(bill.getId(), item.getId(), item.getAmount());
+			bill.setDateAdd(new Date());
 		}
 	}
 

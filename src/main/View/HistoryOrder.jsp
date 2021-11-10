@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="Model.Bean.CartItem"%>
 <%@page import="Model.Bo.CartBo"%>
 <%@page import="Model.Bean.Customer"%>
@@ -42,9 +43,9 @@
 	
 	Customer user = (Customer) session.getAttribute("user");
 	
-	CartBo Cart = (CartBo) session.getAttribute("cart");
+	int lengthCart = request.getAttribute("lengthCart") != null ? (int) request.getAttribute("lengthCart"): 0;
 	
-	if(Cart == null || Cart.size() < 1) response.sendRedirect("Home");
+	ArrayList<CartBo> listBills = (ArrayList<CartBo>) request.getAttribute("listBills");
 %>
 	<!-- Header -->
 	<nav class="navbar navbar-expand-lg sticky-top">
@@ -62,7 +63,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<!-- Navbar brand -->
 				<a class="navbar-brand mt-2 mt-lg-0" href="Home"> <img
-					src="./image_sach/logo_jtc.png" height="55" alt="" loading="lazy" />
+					src="./image_sach/logo_jtc.png" height="55" alt="Jbooks" />
 				</a>
 				<!-- Left links -->
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -70,12 +71,14 @@
 						class="nav-link d-flex align-items-center" href="Home"> <ion-icon
 								name="home-outline"></ion-icon> TRANG CHỦ
 					</a></li>
-					<li class="nav-item active"><a
-						class="nav-link d-flex align-items-center link-cart" href="Cart">
-							<ion-icon name="cart-outline"></ion-icon> GIỎ HÀNG
-					</a></li>
 					<li class="nav-item"><a
-						class="nav-link d-flex align-items-center" href="HistoryOrder"> <ion-icon
+						class="nav-link d-flex align-items-center link-cart" href="Cart">
+							<span id="badge-cart" class="badge rounded-pill bg-danger text-light"><%
+          					if(lengthCart > 0) out.print(lengthCart);%></span>
+						<ion-icon name="cart-outline"></ion-icon> GIỎ HÀNG
+					</a></li>
+					<li class="nav-item active"><a
+						class="nav-link d-flex align-items-center" href="#"> <ion-icon
 								name="hourglass-outline"></ion-icon> LỊCH SỬ MUA HÀNG
 					</a></li>
 				</ul>
@@ -99,47 +102,55 @@
 		</div>
 	</nav>
 	<!-- Body -->
-	<div id="body" class="container pt-3">
-		<div class="alert alert-success" role="alert">
-			<h4 class="text-center">Đặt hàng thành công !</h4>
+	<div id="body" class="container pt-2 pb-4 grid">
+		<div class="row ml-2 mr-2">
+			<div class="col-sm-12 pt-3">
+				<h4>Đơn Hàng Của Tôi</h4>
+				<hr>
+			</div>
 		</div>
-		<div class="mb-2 p-3 bg-light rounded d-flex justify-content-between">
-			<span><strong>MÃ ĐƠN HÀNG: </strong>#<%=Cart.getBill().getId() %></span> <span>THỜI
-				GIAN: <strong><%=Cart.getDateOrder() %></strong>
-			</span>
+			
+		<%if(listBills == null || listBills.size() < 1) {%>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="alert alert-warning text-center" role="alert">
+				  Bạn chưa có đơn hàng nào!
+				</div>
+			</div>
 		</div>
-		<table class="table pt-3 bg-light">
-			<thead>
-				<tr class="table-active">
-					<th scope="col">#</th>
-					<th scope="col">Sản phẩm sách</th>
-					<th scope="col">Số lượng</th>
-					<th scope="col">Thành tiền</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% int i = 0;
-			 	for(CartItem ci: Cart.getCart()){ %>
-				<tr>
-					<th scope="row"><%=++i %></th>
-					<td><%=ci.getName() %></td>
-					<td><%="x "+ci.getAmount() %></td>
-					<td><%=ci.moneyToString() %></td>
-				</tr>
-				<%}%>
-				<tr class="table-active">
-					<td></td>
-					<td></td>
-					<td></td>
-					<td><h4 class="text-success font-weight-bold"><%=Cart.getThanhTien() %></h4></td>
-				</tr>
-			</tbody>
-		</table>
-		<div class="mb-4 mt-4 d-flex justify-content-between">
-			<a href="Home" role="button" class="btn btn-success text-light">Trang
-				Chủ</a> <a href="HistoryOrder" role="button" class="btn btn-danger text-light">Xem
-				Lịch Sử Mua Hàng</a>
+		<%} else
+		for(CartBo cart: listBills) {%>
+		<div class="row ml-3 mr-3 mb-4 bg-light rounded">
+			<div class="col-sm-12">
+				<div class="d-flex justify-content-between pt-3 pb-3 border-bottom">
+					<span class="badge badge-pill badge-success p-2">
+						Mã đơn hàng: #<%= cart.getBill().getId()%>
+					</span>
+					<span class="badge badge-pill badge-info p-2">
+						Ngày đặt: <%= cart.getDateOrder() %>
+					</span>
+					<span class="badge badge-pill badge-secondary p-2"><%=
+					cart.getBill().isStatus()? "Đã thanh toán":"Đang giao hàng"
+					%></span>
+				</div>
+				<%for(CartItem item: cart.getCart()){ %>
+				<div class="d-flex justify-content-between p-3 border-bottom">
+					<div class="d-flex">
+						<img src="./image_sach/<%=item.getImg() %>" width="40" height="50" alt="sach">
+						<div class="ml-3">
+							<div class="font-weight-bold text-primary"><%=item.getName() %></div>
+							<small><%=item.priceToString() %> x <%=item.getAmount() %></small>
+						</div>
+					</div>
+					<div><%=item.moneyToString() %></div>
+				</div>
+				<%} %>
+				<div class="d-flex justify-content-end pt-3 pb-3 border-top">
+					<h5 class="font-weight-bold text-warning"><%= cart.getThanhTien()%></h5>
+				</div>
+			</div>
 		</div>
+		<%} %>
 	</div>
 	<!-- Footer -->
 	<footer class="bg-dark text-center">
@@ -169,6 +180,5 @@
 			style="background-color: rgba(0, 0, 0, 0.2);">© 2021 Copyright:
 			Trần Trung Chính</div>
 	</footer>
-	<%Cart.clearCart();%>
 </body>
 </html>

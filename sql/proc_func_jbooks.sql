@@ -76,3 +76,26 @@ begin
 	set @id = @@IDENTITY;
 end
 go
+
+
+--function get billdetail
+if(exists(select * from sys.objects where name = 'func_getBillDetail'))
+	drop function func_getBillDetail;
+go
+CREATE FUNCTION func_getBillDetail (
+    @billId bigint
+)
+RETURNS TABLE
+AS
+RETURN
+    SELECT 
+        b.Name,
+        b.Author,
+        b.Img,
+		b.Price,
+		bd.Amount
+    FROM
+        BillDetails as bd join Books as b on bd.BookId = b.Id
+    WHERE
+        bd.BillId = @billId;
+

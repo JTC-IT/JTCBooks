@@ -81,7 +81,7 @@
 						<ion-icon name="cart-outline"></ion-icon> GIỎ HÀNG
 					</a></li>
 					<li class="nav-item"><a
-						class="nav-link d-flex align-items-center" href="#"> <ion-icon
+						class="nav-link d-flex align-items-center" href="HistoryOrder"> <ion-icon
 								name="hourglass-outline"></ion-icon> LỊCH SỬ MUA HÀNG
 					</a></li>
 				</ul>
