@@ -231,8 +231,8 @@ a {
 	</div>
 	<a class="navbar-brand ml-5 mt-3 fixed-top" href="Home"
 		title="Trang chủ" style="width: 110px"> <img
-		src="./image_sach/logo_jtc.png" height="55" alt="" />
+		src="./IMG/logo_jtc.png" height="55" alt="" />
 	</a>
-	<script type="text/javascript" src="./JS/login.js"></script>
+	<script type="text/javascript" src="./JS/logins.js"></script>
 </body>
 </html>

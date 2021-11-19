@@ -99,3 +99,32 @@ RETURN
     WHERE
         bd.BillId = @billId;
 
+
+--function get quantity bill
+if(exists(select * from sys.objects where name = 'func_getQuantityBill'))
+	drop function func_getQuantityBill;
+go
+CREATE FUNCTION func_getQuantityBill ()
+RETURNS int
+AS
+begin
+	declare @t int = 0;
+    SELECT @t = COUNT(Id)  FROM Bills WHERE Status = 0;
+	return @t;
+end
+go 
+
+
+--function get quantity books by category
+if(exists(select * from sys.objects where name = 'func_getQuantityBooks'))
+	drop function func_getQuantityBooks;
+go
+CREATE FUNCTION func_getQuantityBooks(@id int)
+RETURNS int
+AS
+begin
+	declare @t int = 0;
+    SELECT @t = COUNT(Id)  FROM Books WHERE CategoryId = @id;
+	return @t;
+end
+go 

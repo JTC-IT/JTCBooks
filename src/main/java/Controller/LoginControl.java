@@ -50,16 +50,18 @@ public class LoginControl extends HttpServlet {
 			String pass = request.getParameter("pass");
 
 			PrintWriter out = response.getWriter();
-			boolean mes = false;
+			int mes = -1;
 			JSONObject json = new JSONObject();
 
 			if (uname != null && pass != null) {
 				Customer user = new CustomerBo().Login(uname, pass);
 				if (user != null) {
 					session.setAttribute("user", user);
-					mes = true;
+					if(user.isAdmin())
+						mes = 1;
+					else mes = 0;
 				} else
-					mes = false;
+					mes = -1;
 			}
 			json.put("mes", mes);
 			out.print(json.toJSONString());

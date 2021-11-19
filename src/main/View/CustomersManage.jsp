@@ -5,7 +5,7 @@
 <head>
 <title>JBooks</title>
 <meta charset="utf-8">
-<link rel="icon" href="./image_sach/icon_jshop.png">
+<link rel="icon" href="./IMG/icon_jshop.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Bootstrap -->
 <link rel="stylesheet"

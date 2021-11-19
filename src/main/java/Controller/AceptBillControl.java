@@ -8,18 +8,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import Model.Bean.Customer;
 import Model.Bo.BillBo;
-import Model.Bo.CartBo;
 
 /**
- * Servlet implementation class HistoryOrderControl
+ * Servlet implementation class AceptBillControl
  */
-@WebServlet("/HistoryOrder")
-public class HistoryOrderControl extends HttpServlet {
+@WebServlet("/AceptBill")
+public class AceptBillControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public AceptBillControl() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -28,28 +33,29 @@ public class HistoryOrderControl extends HttpServlet {
 		try {
 			request.setCharacterEncoding("utf-8");
 			response.setCharacterEncoding("utf-8");
-
-			// get session
-			HttpSession session = request.getSession();
 			
-			//get user
-			Customer user = (Customer) session.getAttribute("user");
-			if(user == null)
-				response.sendRedirect("Login");
-			else {
-				//get list bill history
-				BillBo billBo = new BillBo();
-				request.setAttribute("listBills", billBo.getBillsByCustomer(user.getId()));
-
-				// get length Cart
-				CartBo Cart = (CartBo) session.getAttribute("cart");
-				if (Cart != null)
-					request.setAttribute("lengthCart", Cart.size());
-
-				// show home
-				RequestDispatcher rd = request.getRequestDispatcher("HistoryOrder.jsp");
-				rd.forward(request, response);
+			String id = request.getParameter("id");
+			String acept = request.getParameter("acept");
+			
+			BillBo billBo = new BillBo();
+			
+			if(id != null && id != "") {
+				if(acept.equals("1"))
+					billBo.aceptBill(Integer.parseInt(id));
+				else if(acept.equals("0"))
+					billBo.removeBill(Integer.parseInt(id));
 			}
+			
+			//get list bill history
+			request.setAttribute("listBills", billBo.getBills());
+
+			// get quantity bills
+			request.setAttribute("quantityBill", billBo.getQuantityBills());
+
+			// show home
+			RequestDispatcher rd = request.getRequestDispatcher("AceptBill.jsp");
+			rd.forward(request, response);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -59,6 +65,7 @@ public class HistoryOrderControl extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

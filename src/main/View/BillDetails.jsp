@@ -1,14 +1,15 @@
-<%@page import="Model.Bean.CartItem"%>
-<%@page import="Model.Bo.CartBo"%>
-<%@page import="Model.Bean.Customer"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
+<c:if test="${cart == null || cart.size() < 1 }">
+	<c:redirect url="Home"></c:redirect>
+</c:if>
 <title>JBooks</title>
 <meta charset="utf-8">
-<link rel="icon" href="./image_sach/icon_jshop.png">
+<link rel="icon" href="./IMG/icon_jshop.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Bootstrap -->
 <link rel="stylesheet"
@@ -36,16 +37,6 @@
 <link rel="stylesheet" href="./CSS/home_reset.css">
 </head>
 <body>
-	<%
-	request.setCharacterEncoding("utf-8") ;
-	response.setCharacterEncoding("utf-8");
-	
-	Customer user = (Customer) session.getAttribute("user");
-	
-	CartBo Cart = (CartBo) session.getAttribute("cart");
-	
-	if(Cart == null || Cart.size() < 1) response.sendRedirect("Home");
-%>
 	<!-- Header -->
 	<nav class="navbar navbar-expand-lg sticky-top">
 		<!-- Container wrapper -->
@@ -62,7 +53,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<!-- Navbar brand -->
 				<a class="navbar-brand mt-2 mt-lg-0" href="Home"> <img
-					src="./image_sach/logo_jtc.png" height="55" alt="" loading="lazy" />
+					src="./IMG/logo_jtc.png" height="55" alt="" loading="lazy" />
 				</a>
 				<!-- Left links -->
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -83,19 +74,23 @@
 			<!-- Right elements -->
 			<div class="d-flex align-items-center">
 				<!-- Avatar -->
-				<%if(user == null) {%>
-				<a href="LoginRegister?exist=1" type="button"
-					class="btn btn-outline-light">Đăng nhập</a> <a
-					href="LoginRegister?exist=0" type="button"
-					class="btn btn-outline-light ml-2">Đăng ký</a>
-				<%} else{ %>
-				<a
-					class="nav-link text-light d-flex align-items-center text-uppercase"
-					href="User"> <ion-icon name="person-outline"></ion-icon> <%=user.getName() %>
-				</a> <a class="btn btn-outline-danger ml-2 font-weight-bold"
-					href="Logout" type="button"> Đăng xuất </a>
+				<c:choose>
+					<c:when test="${user == null }">
+						<a href="LoginRegister?exist=1" type="button"
+						class="btn btn-outline-light">Đăng nhập</a>
+						<a href="LoginRegister?exist=0" type="button"
+						class="btn btn-outline-light ml-2">Đăng ký</a>
+					</c:when>
+					<c:otherwise>
+						<a class="nav-link text-light d-flex align-items-center text-uppercase"
+						href="User">
+							<ion-icon name="person-outline"></ion-icon>
+							${user.getName() }
+						</a>
+						<a class="btn btn-outline-danger ml-2" href="Logout" type="button">Đăng xuất </a>
+					</c:otherwise>
+				</c:choose>
 			</div>
-			<%} %>
 		</div>
 	</nav>
 	<!-- Body -->
@@ -104,8 +99,8 @@
 			<h4 class="text-center">Đặt hàng thành công !</h4>
 		</div>
 		<div class="mb-2 p-3 bg-light rounded d-flex justify-content-between">
-			<span><strong>MÃ ĐƠN HÀNG: </strong>#<%=Cart.getBill().getId() %></span> <span>THỜI
-				GIAN: <strong><%=Cart.getDateOrder() %></strong>
+			<span><strong>MÃ ĐƠN HÀNG: </strong>#${cart.getBill().getId() }</span> <span>THỜI
+				GIAN: <strong>${cart.getDateOrder() }</strong>
 			</span>
 		</div>
 		<table class="table pt-3 bg-light">
@@ -118,20 +113,20 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% int i = 0;
-			 	for(CartItem ci: Cart.getCart()){ %>
-				<tr>
-					<th scope="row"><%=++i %></th>
-					<td><%=ci.getName() %></td>
-					<td><%="x "+ci.getAmount() %></td>
-					<td><%=ci.moneyToString() %></td>
-				</tr>
-				<%}%>
+				<c:set var="i" value="${0 }"></c:set>
+				<c:forEach items="${cart.getCart() }" var="ci">
+					<tr>
+						<th scope="row">${i }</th>
+						<td>${ci.getName() }</td>
+						<td>x ${ci.getAmount() }</td>
+						<td>${ci.moneyToString() }</td>
+					</tr>
+				</c:forEach>
 				<tr class="table-active">
 					<td></td>
 					<td></td>
 					<td></td>
-					<td><h4 class="text-success font-weight-bold"><%=Cart.getThanhTien() %></h4></td>
+					<td><h4 class="text-success font-weight-bold">${cart.getThanhTien() }</h4></td>
 				</tr>
 			</tbody>
 		</table>
@@ -169,6 +164,6 @@
 			style="background-color: rgba(0, 0, 0, 0.2);">© 2021 Copyright:
 			Trần Trung Chính</div>
 	</footer>
-	<%Cart.clearCart();%>
+	${cart.clearCart()}
 </body>
 </html>

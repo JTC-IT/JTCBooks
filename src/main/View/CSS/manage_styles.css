@@ -1,0 +1,50 @@
+*{
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.menu_item {
+	text-decoration: none;
+	color: white;
+	padding: 7px 20px;
+}
+
+.menu_item ion-icon {
+	font-size: 28px
+}
+
+.menu_item span {
+	position: relative;
+}
+
+.menu_item .badge {
+	position: absolute;
+}
+
+.menu_item.active {
+	background-color: #38454C;
+	border-bottom: 2px solid yellow;
+}
+
+.menu_item:hover {
+	text-decoration: none;
+	color: white;
+	background-color: #445760;
+}
+
+.has-search {
+	position: relative;
+}
+
+.has-search .form-control {
+	padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+	position: absolute;
+	left: 10px;
+	top: 5px;
+	z-index: 2;
+	pointer-events: none;
+	color: #aaa;
+}

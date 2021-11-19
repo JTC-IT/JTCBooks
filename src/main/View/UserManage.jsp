@@ -5,7 +5,7 @@
 <head>
 <title>JBooks</title>
 <meta charset="utf-8">
-<link rel="icon" href="./image_sach/icon_jshop.png">
+<link rel="icon" href="./IMG/icon_jshop.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Bootstrap -->
 <link rel="stylesheet"
@@ -27,13 +27,73 @@
 <script type="module"
 	src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <!-- My CSS -->
-<link rel="stylesheet" href="./CSS/home_style.css">
+<link rel="stylesheet" href="./CSS/manage_styles.css">
 </head>
 <body>
+<!-- Header -->
+	<nav class="sticky-top bg-secondary">
+		<!-- Container wrapper -->
+		<div class="container-fluid d-flex justify-content-between">
+			<!-- Navbar brand -->
+			<div class="ml-3">
+				<a class="navbar-brand mt-2 mt-lg-0" href="Home"> <img
+					src="./IMG/logo_jtc.png" height="55" alt="Jbooks" />
+				</a>
+			</div>
+			<!-- Collapsible wrapper -->
+			<div class="d-flex">
+				<a class="menu_item d-flex flex-column align-items-center" href="Home">
+					<span>
+						<ion-icon name="documents-outline"></ion-icon>
+						<span class="badge badge-pill badge-danger">5</span>
+					</span>
+					DUYỆT ĐƠN HÀNG
+				</a>
+				<a class="menu_item active d-flex flex-column align-items-center" href="Cart">
+					<span><ion-icon name="library-outline"></ion-icon></span>QUẢN LÝ SÁCH
+				</a>
+				<a class="menu_item d-flex flex-column align-items-center" href="HistoryOrder">
+					<span><ion-icon name="people-outline"></ion-icon></span>QUẢN LÝ NGƯỜI DÙNG
+				</a>
+			</div>
+			<!-- Right elements -->
+			<div class="d-flex align-items-center">
+				<!-- Avatar -->
+				<a class="nav-link text-light d-flex align-items-center text-uppercase"
+				href="User">
+					<ion-icon name="person-outline" class="p-2"></ion-icon>
+					ADMIN ${user.getName() }
+				</a>
+				<a class="btn btn-outline-danger ml-2" href="Logout" type="button">Đăng xuất </a>
+			</div>
+		</div>
+	</nav>
+	<!-- Body -->
 	<div class="container">
+		<div class="row mt-4">
+			<div class="col-md-5">
+				<h4>QUẢN LÝ SÁCH</h4>
+			</div>
+			<div class="col-md-1">
+				<a href="#" class="badge badge-pill badge-success p-2">
+					<ion-icon name="add"></ion-icon>Thêm sách
+				</a>
+			</div>
+			<div class="col-md-3">
+				<select class="form-control form-control-sm">
+				  <option>Tất cả sách</option>
+				</select>
+			</div>
+			<div class="col-md-3">
+				<div class="has-search mb-3">
+					<ion-icon name="search" class="form-control-feedback" size="small"></ion-icon>
+					<input type="text" id="search" class="form-control"
+						placeholder="Tìm kiếm" oninput="searchByKey(this)">
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<h4>Bootstrap Snipp for Datatable</h4>
 				<div class="table-responsive">
 					<table id="mytable" class="table table-bordred table-striped">
 						<thead>
@@ -58,119 +118,39 @@
 										title="Edit">
 										<button class="btn btn-primary btn-xs" data-title="Edit"
 											data-toggle="modal" data-target="#edit">
-											<span class="glyphicon glyphicon-pencil"></span>
+											<ion-icon name="create-outline"></ion-icon>
 										</button>
 									</p></td>
 								<td><p data-placement="top" data-toggle="tooltip"
 										title="Delete">
 										<button class="btn btn-danger btn-xs" data-title="Delete"
 											data-toggle="modal" data-target="#delete">
-											<span class="glyphicon glyphicon-trash"></span>
-										</button>
-									</p></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" class="checkthis" /></td>
-								<td>Mohsin</td>
-								<td>Irshad</td>
-								<td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
-								<td>isometric.mohsin@gmail.com</td>
-								<td>+923335586757</td>
-								<td><p data-placement="top" data-toggle="tooltip"
-										title="Edit">
-										<button class="btn btn-primary btn-xs" data-title="Edit"
-											data-toggle="modal" data-target="#edit">
-											<span class="glyphicon glyphicon-pencil"></span>
-										</button>
-									</p></td>
-								<td><p data-placement="top" data-toggle="tooltip"
-										title="Delete">
-										<button class="btn btn-danger btn-xs" data-title="Delete"
-											data-toggle="modal" data-target="#delete">
-											<span class="glyphicon glyphicon-trash"></span>
-										</button>
-									</p></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" class="checkthis" /></td>
-								<td>Mohsin</td>
-								<td>Irshad</td>
-								<td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
-								<td>isometric.mohsin@gmail.com</td>
-								<td>+923335586757</td>
-								<td><p data-placement="top" data-toggle="tooltip"
-										title="Edit">
-										<button class="btn btn-primary btn-xs" data-title="Edit"
-											data-toggle="modal" data-target="#edit">
-											<span class="glyphicon glyphicon-pencil"></span>
-										</button>
-									</p></td>
-								<td><p data-placement="top" data-toggle="tooltip"
-										title="Delete">
-										<button class="btn btn-danger btn-xs" data-title="Delete"
-											data-toggle="modal" data-target="#delete">
-											<span class="glyphicon glyphicon-trash"></span>
-										</button>
-									</p></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" class="checkthis" /></td>
-								<td>Mohsin</td>
-								<td>Irshad</td>
-								<td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
-								<td>isometric.mohsin@gmail.com</td>
-								<td>+923335586757</td>
-								<td><p data-placement="top" data-toggle="tooltip"
-										title="Edit">
-										<button class="btn btn-primary btn-xs" data-title="Edit"
-											data-toggle="modal" data-target="#edit">
-											<span class="glyphicon glyphicon-pencil"></span>
-										</button>
-									</p></td>
-								<td><p data-placement="top" data-toggle="tooltip"
-										title="Delete">
-										<button class="btn btn-danger btn-xs" data-title="Delete"
-											data-toggle="modal" data-target="#delete">
-											<span class="glyphicon glyphicon-trash"></span>
-										</button>
-									</p></td>
-							</tr>
-							<tr>
-								<td><input type="checkbox" class="checkthis" /></td>
-								<td>Mohsin</td>
-								<td>Irshad</td>
-								<td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
-								<td>isometric.mohsin@gmail.com</td>
-								<td>+923335586757</td>
-								<td><p data-placement="top" data-toggle="tooltip"
-										title="Edit">
-										<button class="btn btn-primary btn-xs" data-title="Edit"
-											data-toggle="modal" data-target="#edit">
-											<span class="glyphicon glyphicon-pencil"></span>
-										</button>
-									</p></td>
-								<td><p data-placement="top" data-toggle="tooltip"
-										title="Delete">
-										<button class="btn btn-danger btn-xs" data-title="Delete"
-											data-toggle="modal" data-target="#delete">
-											<span class="glyphicon glyphicon-trash"></span>
+											<ion-icon name="trash-outline"></ion-icon>
 										</button>
 									</p></td>
 							</tr>
 						</tbody>
 					</table>
 					<div class="clearfix"></div>
-					<ul class="pagination pull-right">
-						<li class="disabled"><a href="#"><span
-								class="glyphicon glyphicon-chevron-left"></span></a></li>
-						<li class="active"><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#"><span
-								class="glyphicon glyphicon-chevron-right"></span></a></li>
-					</ul>
+					<nav aria-label="Page navigation example">
+					  <ul class="pagination">
+					    <li class="page-item">
+					      <a class="page-link" href="#" aria-label="Previous">
+					        <span aria-hidden="true">&laquo;</span>
+					        <span class="sr-only">Previous</span>
+					      </a>
+					    </li>
+					    <li class="page-item"><a class="page-link" href="#">1</a></li>
+					    <li class="page-item"><a class="page-link" href="#">2</a></li>
+					    <li class="page-item"><a class="page-link" href="#">3</a></li>
+					    <li class="page-item">
+					      <a class="page-link" href="#" aria-label="Next">
+					        <span aria-hidden="true">&raquo;</span>
+					        <span class="sr-only">Next</span>
+					      </a>
+					    </li>
+					  </ul>
+					</nav>
 				</div>
 			</div>
 		</div>
@@ -245,4 +225,22 @@
 		<!-- /.modal-dialog -->
 	</div>
 </body>
+<script>
+$(document).ready(function(){
+	$("#mytable #checkall").click(function () {
+	        if ($("#mytable #checkall").is(':checked')) {
+	            $("#mytable input[type=checkbox]").each(function () {
+	                $(this).prop("checked", true);
+	            });
+
+	        } else {
+	            $("#mytable input[type=checkbox]").each(function () {
+	                $(this).prop("checked", false);
+	            });
+	        }
+	    });
+	    
+	    $("[data-toggle=tooltip]").tooltip();
+	});
+</script>
 </html>

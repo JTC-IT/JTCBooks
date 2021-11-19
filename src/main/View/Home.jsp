@@ -1,7 +1,4 @@
-<%@page import="Model.Bean.Customer"%>
-<%@page import="Model.Bean.Book"%>
-<%@page import="Model.Bean.Category"%>
-<%@page import="java.util.ArrayList"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -9,7 +6,7 @@
 <head>
 <title>JBooks</title>
 <meta charset="utf-8">
-<link rel="icon" href="./image_sach/icon_jshop.png">
+<link rel="icon" href="./IMG/icon_jshop.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Bootstrap -->
 <link rel="stylesheet"
@@ -37,19 +34,6 @@
 <link rel="stylesheet" href="./CSS/home_reset.css">
 </head>
 <body>
-	<%
-	request.setCharacterEncoding("utf-8") ;
-	response.setCharacterEncoding("utf-8");
-
-	//get list category books
-	ArrayList<Category> listCategory = (ArrayList<Category>) request.getAttribute("listCategory");
-	//get list books
-	ArrayList<Book> listBook = (ArrayList<Book>) request.getAttribute("listBook");
-	//get Khach hang
-	Customer user = (Customer) session.getAttribute("user");
-	//get length cart
-	int lengthCart = request.getAttribute("lengthCart") != null ? (int) request.getAttribute("lengthCart"): 0;
-%>
 	<!-- Header -->
 	<nav class="navbar navbar-expand-lg sticky-top">
 		<!-- Container wrapper -->
@@ -66,7 +50,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<!-- Navbar brand -->
 				<a class="navbar-brand mt-2 mt-lg-0" href="Home"> <img
-					src="./image_sach/logo_jtc.png" height="55" alt="Jbooks" />
+					src="./IMG/logo_jtc.png" height="55" alt="Jbooks" />
 				</a>
 				<!-- Left links -->
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -74,12 +58,15 @@
 						class="nav-link d-flex align-items-center" href="Home"> <ion-icon
 								name="home-outline"></ion-icon> TRANG CHỦ
 					</a></li>
-					<li class="nav-item"><a
-						class="nav-link d-flex align-items-center link-cart" href="Cart">
-							<span id="badge-cart" class="badge rounded-pill bg-danger text-light"><%
-          					if(lengthCart > 0) out.print(lengthCart);%></span>
-						<ion-icon name="cart-outline"></ion-icon> GIỎ HÀNG
-					</a></li>
+					<li class="nav-item">
+						<a class="nav-link d-flex align-items-center link-cart" href="Cart">
+							<c:if test="${lengthCart != null && lengthCart > 0}">
+								<span id="badge-cart" class="badge rounded-pill bg-danger text-light">
+									${lengthCart }
+								</span>
+							</c:if>
+							<ion-icon name="cart-outline"></ion-icon> GIỎ HÀNG
+						</a></li>
 					<li class="nav-item"><a
 						class="nav-link d-flex align-items-center" href="HistoryOrder"> <ion-icon
 								name="hourglass-outline"></ion-icon> LỊCH SỬ MUA HÀNG
@@ -89,19 +76,23 @@
 			<!-- Right elements -->
 			<div class="d-flex align-items-center">
 				<!-- Avatar -->
-				<%if(user == null) {%>
-				<a href="LoginRegister?exist=1" type="button"
-					class="btn btn-outline-light">Đăng nhập</a> <a
-					href="LoginRegister?exist=0" type="button"
-					class="btn btn-outline-light ml-2">Đăng ký</a>
-				<%} else{ %>
-				<a
-					class="nav-link text-light d-flex align-items-center text-uppercase"
-					href="User"> <ion-icon name="person-outline"></ion-icon> <%=user.getName() %>
-				</a> <a class="btn btn-outline-danger ml-2" href="Logout" type="button">
-					Đăng xuất </a>
+				<c:choose>
+					<c:when test="${user == null }">
+						<a href="LoginRegister?exist=1" type="button"
+						class="btn btn-outline-light">Đăng nhập</a>
+						<a href="LoginRegister?exist=0" type="button"
+						class="btn btn-outline-light ml-2">Đăng ký</a>
+					</c:when>
+					<c:otherwise>
+						<a class="nav-link text-light d-flex align-items-center text-uppercase"
+						href="User">
+							<ion-icon name="person-outline"></ion-icon>
+							${user.getName() }
+						</a>
+						<a class="btn btn-outline-danger ml-2" href="Logout" type="button">Đăng xuất </a>
+					</c:otherwise>
+				</c:choose>
 			</div>
-			<%} %>
 		</div>
 	</nav>
 	<!-- Body -->
@@ -114,14 +105,16 @@
 						placeholder="Tìm kiếm" oninput="searchByKey(this)">
 				</div>
 				<dl>
-					<dt
-						class="p-2 bg-warning font-weight-bold text-dark text-uppercase">Thể
-						Loại Sách</dt>
-					<% if(listCategory != null) for(Category ls: listCategory){ %>
-					<dd class="loaiSach-item"
-						onclick="searchByCategory(<%=ls.getId()%>)">
-						<%=ls.getName()%></dd>
-					<%}%>
+					<dt class="p-2 bg-warning font-weight-bold text-dark text-uppercase">
+						Thể Loại Sách
+					</dt>
+					<c:if test="${listCategory != null }">
+						<c:forEach items="${listCategory }" var="ls">
+							<dd class="loaiSach-item" onclick="searchByCategory(${ls.getId()})">
+								${ls.getName() }
+							</dd>
+						</c:forEach>
+					</c:if>
 				</dl>
 				<div></div>
 			</div>
@@ -135,15 +128,15 @@
 					</ol>
 					<div class="carousel-inner">
 						<div class="carousel-item active">
-							<img class="d-block w-100" src="./image_sach/slide1.jpg"
+							<img class="d-block w-100" src="./IMG/slide1.jpg"
 								alt="First slide">
 						</div>
 						<div class="carousel-item">
-							<img class="d-block w-100" src="./image_sach/slide2.jpg"
+							<img class="d-block w-100" src="./IMG/slide2.jpg"
 								alt="Second slide">
 						</div>
 						<div class="carousel-item">
-							<img class="d-block w-100" src="./image_sach/slide3.jpg"
+							<img class="d-block w-100" src="./IMG/slide3.jpg"
 								alt="Third slide">
 						</div>
 					</div>
@@ -158,33 +151,30 @@
 				<!-- Gird Books -->
 				<div class="container grid">
 					<div class="row" id="listBooks">
-						<%
-				if(listBook != null)
-					for(Book s: listBook){
-				%>
-						<div class="col-sm-4 pb-3 bookItem">
-							<div class="card">
-								<div class="card-body d-flex flex-column align-items-center">
-									<img alt="<%=s.getName()%>" src="image_sach/<%=s.getImg()%>">
-									<div
-										class="card-content d-flex flex-column align-items-center mt-3 justify-content-between">
-										<div class="w-100">
-											<div class="font-weight-bold text-center text-truncate"><%=s.getName() %></div>
-											<small class="text-primary text-center text-truncate"><%=s.getAuthor() %></small>
-										</div>
+					<c:if test="${listBook != null }">
+						<c:forEach items="${listBook }" var="s">
+							<div class="col-sm-4 pb-3 bookItem">
+								<div class="card">
+									<div class="card-body d-flex flex-column align-items-center">
+										<img alt="${s.getName() }" src="IMG/${s.getImg() }">
 										<div
-											class="w-100 mt-3 d-flex align-items-end justify-content-between">
-											<strong class="text-danger"><%=s.priceToString()%></strong> <a
-												class="btn btn-outline-success"
-												href="OrderControl?id=<%=s.getId()%>" role="button">Mua</a>
+											class="card-content d-flex flex-column align-items-center mt-3 justify-content-between">
+											<div class="w-100">
+												<div class="font-weight-bold text-center text-truncate">${s.getName() }</div>
+												<small class="text-primary text-center text-truncate">${s.getAuthor() }</small>
+											</div>
+											<div
+												class="w-100 mt-3 d-flex align-items-end justify-content-between">
+												<strong class="text-danger">${s.priceToString() }</strong> <a
+													class="btn btn-outline-success"
+													href="OrderControl?id=${s.getId() }" role="button">Mua</a>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<%
-				}
-				%>
+						</c:forEach>
+					</c:if>
 					</div>
 				</div>
 				<!-- Next list books -->

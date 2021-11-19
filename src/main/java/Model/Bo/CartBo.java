@@ -7,6 +7,7 @@ import java.util.Date;
 import Model.Bean.Bill;
 import Model.Bean.Book;
 import Model.Bean.CartItem;
+import Model.Dao.BillDao;
 import Model.Dao.CartDao;
 
 public class CartBo {
@@ -84,7 +85,22 @@ public class CartBo {
 		if (size() < 1)
 			return;
 		CartDao cartDao = new CartDao();
-		bill.setId(cartDao.createBill(customerId, address));
+		BillDao billDao = new BillDao();
+		bill.setId(billDao.createBill(customerId, address));
+
+		if (bill.getId() > 0) {
+			for (CartItem item : Cart)
+				cartDao.saveCartItem(bill.getId(), item.getId(), item.getAmount());
+			bill.setDateAdd(new Date());
+		}
+	}
+
+	public void aceptCart(int customerId, String address) throws Exception {
+		if (size() < 1)
+			return;
+		CartDao cartDao = new CartDao();
+		BillDao billDao = new BillDao();
+		bill.setId(billDao.createBill(customerId, address));
 
 		if (bill.getId() > 0) {
 			for (CartItem item : Cart)

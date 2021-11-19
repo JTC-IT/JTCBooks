@@ -17,28 +17,34 @@ public class BookBo {
 	}
 
 	public Book getBook(int id) throws Exception {
-		for (Book b : bookDao.getBooks())
-			if (b.getId() == id)
-				return b;
-		return null;
+		return bookDao.getBook(id);
 	}
 
 	public ArrayList<Book> searchCategory(int category) throws Exception {
-		ArrayList<Book> ds = bookDao.getBooks();
-		ArrayList<Book> tam = new ArrayList<Book>();
-		for (Book b : ds)
-			if (b.getCategoryId() == category)
-				tam.add(b);
-		return tam;
+		return bookDao.getBooksByCategory(category);
 	}
 
 	public ArrayList<Book> Search(String key) throws Exception {
 		key = key.trim().toLowerCase();
-		ArrayList<Book> ds = bookDao.getBooks();
-		ArrayList<Book> tam = new ArrayList<Book>();
-		for (Book s : ds)
-			if (s.getName().toLowerCase().contains(key) || s.getAuthor().toLowerCase().contains(key))
-				tam.add(s);
-		return tam;
+		return bookDao.getBooksByKey(key);
+	}
+	
+	public int getTotalBooks(int idCategory) throws Exception {
+		return bookDao.getTotalBooks(idCategory);
+	}
+	
+	public void addBook(String name, String author, int amount, int price, String img, int category) throws Exception
+	{
+		bookDao.addBook(name, author, amount, price, img, category);
+	}
+	
+	public void updateBook(Book b) throws Exception
+	{
+		bookDao.updateBook(b);
+	}
+	
+	public void deleteBook(int id) throws Exception
+	{
+		bookDao.deleteBook(id);
 	}
 }

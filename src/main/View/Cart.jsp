@@ -1,13 +1,11 @@
-<%@page import="Model.Bean.CartItem"%>
-<%@page import="Model.Bo.CartBo"%>
-<%@page import="Model.Bean.Customer"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="icon" href="./image_sach/icon_jshop.png">
+<link rel="icon" href="./IMG/icon_jshop.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JBooks</title>
 
@@ -33,14 +31,6 @@
 <link rel="stylesheet" href="./CSS/cart_styles.css">
 </head>
 <body>
-	<%
-	request.setCharacterEncoding("utf-8") ;
-	response.setCharacterEncoding("utf-8");
-	
-	Customer user = (Customer) session.getAttribute("user");
-	
-	CartBo Cart = (CartBo) session.getAttribute("cart");
-%>
 	<!-- Header -->
 	<nav class="navbar navbar-expand-lg sticky-top">
 		<!-- Container wrapper -->
@@ -57,7 +47,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<!-- Navbar brand -->
 				<a class="navbar-brand mt-2 mt-lg-0" href="Home"> <img
-					src="./image_sach/logo_jtc.png" height="55" alt="" loading="lazy" />
+					src="./IMG/logo_jtc.png" height="55" alt="" loading="lazy" />
 				</a>
 				<!-- Left links -->
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -78,19 +68,23 @@
 			<!-- Right elements -->
 			<div class="d-flex align-items-center">
 				<!-- Avatar -->
-				<%if(user == null) {%>
-				<a href="LoginRegister?exist=1" type="button"
-					class="btn btn-outline-light">Đăng nhập</a> <a
-					href="LoginRegister?exist=0" type="button"
-					class="btn btn-outline-light ml-2">Đăng ký</a>
-				<%} else{ %>
-				<a
-					class="nav-link text-light d-flex align-items-center text-uppercase"
-					href="User"> <ion-icon name="person-outline"></ion-icon> <%=user.getName() %>
-				</a> <a class="btn btn-outline-danger ml-2 font-weight-bold"
-					href="Logout" type="button"> Đăng xuất </a>
+				<c:choose>
+					<c:when test="${user == null }">
+						<a href="LoginRegister?exist=1" type="button"
+						class="btn btn-outline-light">Đăng nhập</a>
+						<a href="LoginRegister?exist=0" type="button"
+						class="btn btn-outline-light ml-2">Đăng ký</a>
+					</c:when>
+					<c:otherwise>
+						<a class="nav-link text-light d-flex align-items-center text-uppercase"
+						href="User">
+							<ion-icon name="person-outline"></ion-icon>
+							${user.getName() }
+						</a>
+						<a class="btn btn-outline-danger ml-2" href="Logout" type="button">Đăng xuất </a>
+					</c:otherwise>
+				</c:choose>
 			</div>
-			<%} %>
 		</div>
 	</nav>
 	<!-- Body -->
@@ -98,8 +92,16 @@
 		<!-- Alert-->
 		<div class="alert alert-info text-center" style="margin-bottom: 30px;"
 			role="alert">
-			<span id="alert-status"> <%if(Cart == null || Cart.size() <= 0) out.print("Giỏ hàng trống !");
-			else out.print("Giỏ hàng có "+Cart.size()+" sản phẩm chưa được thanh toán !");%>
+			<span id="alert-status">
+			<c:choose>
+				<c:when test="${cart == null || cart.size() <= 0 }">
+					<c:out value="Giỏ hàng trống !"></c:out>
+				</c:when>
+				<c:otherwise>
+					<c:out value="Giỏ hàng có ${cart.size() } sản phẩm chưa được thanh toán !">
+					</c:out>
+				</c:otherwise>
+			</c:choose>
 			</span>
 		</div>
 		<!-- Shopping Cart-->
@@ -118,42 +120,48 @@
 					</tr>
 				</thead>
 				<tbody id="cart-body">
-					<%if(Cart != null) for(CartItem item: Cart.getCart()){ %>
-					<tr class="cart-item">
-						<td>
-							<div class="product-item">
-								<a class="product-thumb" href="image_sach/<%=item.getImg()%>">
-									<img src="image_sach/<%=item.getImg()%>" alt="Book">
-								</a>
-								<div class="product-info">
-									<h6 class="product-title font-weight-bold text-truncate">
-										<a href="#"><%=item.getName() %></a>
-									</h6>
-									<span class="text-primary text-truncate"><%=item.getAuthor() %></span>
-									<span><em>Giá: </em><%=item.priceToString() %></span>
-								</div>
-							</div>
-						</td>
-						<td class="text-center">
-							<div class="count-input">
-								<select class="form-control selectAmount"
-									onchange="changeAmount(this,<%=item.getId() %>)">
-									<%for(int i = 1; i <= 5; i++){ %>
-									<option value="<%=i %>"
-										<%if(i == item.getAmount()) out.print("selected"); %>><%=i %></option>
-									<%} %>
-								</select>
-							</div>
-						</td>
-						<td id="intoMoney" class="text-center text-lg text-medium"><%=item.moneyToString() %></td>
-						<td class="text-center">
-							<button type="button" class="btn btn-ligh remove-from-cart"
-								onclick="removeCartItem(this,<%=item.getId()%>)">
-								<ion-icon name="trash"></ion-icon>
-							</button>
-						</td>
-					</tr>
-					<%} %>
+					<c:if test="${cart != null }">
+						<c:forEach items="${cart.getCart() }" var="item">
+							<tr class="cart-item">
+								<td>
+									<div class="product-item">
+										<a class="product-thumb" href="IMG/${item.getImg() }">
+											<img src="IMG/${item.getImg() }" alt="Book">
+										</a>
+										<div class="product-info">
+											<h6 class="product-title font-weight-bold text-truncate">
+												<a href="#">${item.getName() }</a>
+											</h6>
+											<span class="text-primary text-truncate">${item.getAuthor() }</span>
+											<span><em>Giá: </em>${item.priceToString() }</span>
+										</div>
+									</div>
+								</td>
+								<td class="text-center">
+									<div class="count-input">
+										<select class="form-control selectAmount"
+											onchange="changeAmount(this,${item.getId() })">
+											<c:forTokens items="1,2,3,4,5,6,7,8,9" delims="," var="i">
+												<option value="${i }"
+													<c:if test="${i == item.getAmount() }">
+														<c:out value="selected"></c:out>
+													</c:if>>
+													<c:out value="${i }"></c:out>
+												</option>
+											</c:forTokens>
+										</select>
+									</div>
+								</td>
+								<td id="intoMoney" class="text-center text-lg text-medium">${item.moneyToString() }</td>
+								<td class="text-center">
+									<button type="button" class="btn btn-ligh remove-from-cart"
+										onclick="removeCartItem(this,${item.getId()})">
+										<ion-icon name="trash"></ion-icon>
+									</button>
+								</td>
+							</tr>
+						</c:forEach>
+					</c:if>
 				</tbody>
 			</table>
 		</div>
@@ -161,7 +169,14 @@
 			<div class="column text-lg">
 				Thành tiền:
 				<h3 id="sumPay" class="d-inline font-weight-bold">
-					<%if(Cart != null) out.print(Cart.getThanhTien()); else out.print("0 đ");%>
+					<c:choose>
+						<c:when test="${cart != null }">
+							<c:out value="${cart.getThanhTien() }"></c:out>
+						</c:when>
+						<c:otherwise>
+							<c:out value="0 đ"></c:out>
+						</c:otherwise>
+					</c:choose>
 				</h3>
 			</div>
 		</div>
@@ -171,9 +186,14 @@
 					class="icon-arrow-left"></i>Tiếp tục mua</a>
 			</div>
 			<div class="column">
-				<%if(Cart != null && Cart.size() > 0)
-					out.print("<button type=\"button\" id=\"btn-payCart\" class=\"btn btn-success\" onclick=\"showConfirmOrder()\">Đặt mua ngay</button>");
-				%>
+				<c:if test="${cart != null && cart.size() > 0 }">
+					<button type="button"
+						id="btn-payCart" 
+						class="btn btn-success" 
+						onclick="showConfirmOrder()">
+						Đặt mua ngay
+					</button>
+				</c:if>
 			</div>
 		</div>
 	</div>

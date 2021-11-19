@@ -1,8 +1,10 @@
 eclipse.preferences.version=1
 encoding//src/main/View/Cart.jsp=UTF-8
 encoding//src/main/View/Login.jsp=UTF-8
+encoding//src/main/java/Controller/AddBookControl.java=UTF-8
 encoding//src/main/java/Controller/ChangeOrder.java=UTF-8
 encoding//src/main/java/Controller/LoginControl.java=UTF-8
+encoding//src/main/java/Controller/UpdateBookControl.java=UTF-8
 encoding//src/main/java/Model/Bean/Book.java=UTF-8
 encoding//src/main/java/Model/Bean/CartItem.java=UTF-8
 encoding//src/main/java/Model/Bo/CartBo.java=UTF-8

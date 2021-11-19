@@ -51,7 +51,7 @@ public class SeeMoreControl extends HttpServlet {
 			for (Book s : listBook) {
 				out.print("<div class=\"col-sm-4 pb-3 bookItem\">\r\n" + "<div class=\"card\">\r\n"
 						+ "		<div class=\"card-body d-flex flex-column align-items-center\">\r\n"
-						+ "			<img alt=\"" + s.getName() + "\" src=\"image_sach/" + s.getImg() + "\">\r\n"
+						+ "			<img alt=\"" + s.getName() + "\" src=\"IMG/" + s.getImg() + "\">\r\n"
 						+ "			<div class=\"card-content d-flex flex-column align-items-center mt-3 justify-content-between\">\r\n"
 						+ "				<div class=\"w-100\">\r\n"
 						+ "					<div class=\"font-weight-bold text-center text-truncate\">" + s.getName()

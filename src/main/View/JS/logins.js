@@ -28,9 +28,11 @@ function checkLogin() {
 	        data: data,
 			dataType: 'JSON',
 	        success: function (info) {
-				if(info.mes){
+				if(info.mes == 1)
+					window.location.replace("AceptBill");
+				else if(info.mes == 0)
 					window.location.replace("Home");
-				}else $("#login-mess").text("Số điện thoại/email hoặc mật khẩu không đúng!");
+				else $("#login-mess").text("Số điện thoại/email hoặc mật khẩu không đúng!");
 	        }
 	    });
 	}else $("#login-mess").text("Các trường không được để trống!");
